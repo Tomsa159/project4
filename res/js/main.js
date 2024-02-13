@@ -1,8 +1,16 @@
+import { Champ } from "./champs/Champ.js";
+import { Background } from "./ui/basic-ui.js";
+import { Player } from "./champs/Player.js";
+
+const jinx = new Champ("Jinx", 100 ,25 ,10 , 3)
+console.log(jinx);
+const player = new Player();
+const background = new Background();
+console.log(background);
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-//!!!!!=>   []-pole, {}-objekt  <=!!!!!
-
+//!!!!!=>   []-pole, {}-objekt  <=!!!!!//
 const keys = {};
 
 document.addEventListener("keydown", (e) => {
@@ -16,7 +24,7 @@ document.addEventListener("keyup", (e) => {
 
 
 const gameloop = () =>{
-    console.log(keys);
+    //console.log(keys);
     //resize canvas
     resizeCanvas();
 
@@ -38,19 +46,22 @@ const gameloop = () =>{
 const resizeCanvas = () =>{
     canvas.width = 1280;
     canvas.height = 720;
-}
+};
 
 const clearCanvas = () =>{
-    ctx.fillStyle = "white";
-    ctx.fillRect(0,0,1280,720);
-}
+    background.draw(ctx);
+};
 
 const update = () =>{
-
+jinx.update();
+player.update(keys);
+Champ.detectHit(player.dart,jinx);
 }
 
 const render = () =>{
-
+jinx.draw(ctx);
+player.draw(ctx);
+player.dart.draw(ctx);
 }
 
 const getFps = () =>{
